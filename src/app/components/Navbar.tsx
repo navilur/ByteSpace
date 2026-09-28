@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -15,15 +16,14 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+    <header className="border-b border-gray-200 bg-white">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
         <Link
           href="/"
           className="text-xl font-bold text-gray-900"
           onClick={() => setIsOpen(false)}
         >
-          MyLogo
+          <Image src="/Header_Logo.svg" alt="MyLogo" width={100} height={40} />
         </Link>
 
         {/* Desktop Navigation */}
