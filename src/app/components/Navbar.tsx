@@ -1,51 +1,103 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { LucideShoppingBag } from "lucide-react";
 
-const navItems = [
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
+  { label: "Courses", href: "/courses" },
+  { label: "Creators", href: "/creators" },
+];
+
+const authItems: NavItem[] = [
+  { label: "Sign In", href: "/login" },
+  { label: "Join Us", href: "/register" },
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string): boolean => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return pathname.startsWith(href);
+  };
 
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="absolute inset-x-0 top-9 z-50 w-full bg-transparent">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Logo */}
         <Link
           href="/"
-          className="text-xl font-bold text-gray-900"
           onClick={() => setIsOpen(false)}
+          className="shrink-0 transition-transform duration-300 hover:-translate-y-1"
         >
-          <Image src="/Header_Logo.svg" alt="MyLogo" width={100} height={40} />
+          <Image
+            src="/Header_Logo.svg"
+            alt="Logo"
+            width={171}
+            height={37}
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-gray-600 transition hover:text-blue-600"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const active = isActive(item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`group relative font-[Satoshi] text-[16px] font-normal leading-[160%] transition-all duration-300 ${
+                  active
+                    ? "text-white -translate-y-1"
+                    : "text-[#F5F5F6] hover:-translate-y-1 hover:text-white"
+                }`}
+              >
+                {item.label}
+
+                {/* Active / Hover underline */}
+                <span
+                  className={`absolute -bottom-2 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-white transition-all duration-300 ${
+                    active ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </div>
 
         {/* Desktop CTA */}
-        <div className="hidden md:block">
-          <Link
-            href="/contact"
-            className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
-          >
-            Get Started
+        <div className="hidden md:flex gap-6">
+          {authItems.map((item) => {
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`group relative font-[Satoshi] text-[16px] font-normal leading-[160%] transition-all duration-300 text-[#F5F5F6] hover:-translate-y-1 hover:text-white`}
+              >
+                {item.label}
+                <span
+                  className={`absolute -bottom-2 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-white transition-all duration-300 w-0 group-hover:w-full`}
+                />
+              </Link>
+            );
+          })}
+          <Link href="/">
+            <LucideShoppingBag color="#F5F5F6" size={20} />
           </Link>
         </div>
 
@@ -54,11 +106,10 @@ export default function Navbar() {
           type="button"
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
-          className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 md:hidden"
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="rounded-lg p-2 text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 md:hidden"
         >
           {isOpen ? (
-            // Close icon
             <svg
               className="h-6 w-6"
               fill="none"
@@ -73,7 +124,6 @@ export default function Navbar() {
               />
             </svg>
           ) : (
-            // Hamburger icon
             <svg
               className="h-6 w-6"
               fill="none"
@@ -92,30 +142,75 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="border-t border-gray-200 bg-white md:hidden">
-          <div className="mx-auto max-w-7xl space-y-1 px-4 py-4 sm:px-6">
-            {navItems.map((item) => (
+      <div
+        className={`absolute inset-x-0 top-full border-t border-black/5 bg-white shadow-xl transition-all duration-300 md:hidden ${
+          isOpen
+            ? "visible translate-y-0 opacity-100"
+            : "invisible -translate-y-4 opacity-0"
+        }`}
+      >
+        <div className="mx-auto max-w-7xl px-6 pb-8 pt-6">
+          {/* Main Navigation */}
+          <div className="space-y-2">
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center justify-between rounded-xl px-4 py-4 font-[Satoshi] text-lg font-medium transition-all duration-300 ${
+                    active
+                      ? "bg-[#242528] text-white"
+                      : "text-[#242528] hover:bg-[#F5F5F6]"
+                  }`}
+                >
+                  <span>{item.label}</span>
+
+                  <span
+                    className={`h-2 w-2 rounded-full bg-[#D4FB20] transition-all duration-300 ${
+                      active ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="my-5 h-px bg-black/10" />
+
+          {/* Account Links */}
+          <div className="space-y-2">
+            {authItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-100 hover:text-blue-600"
+                className="flex items-center justify-between rounded-xl px-4 py-4 font-[Satoshi] text-lg font-medium text-[#242528] transition-all duration-300 hover:bg-[#F5F5F6]"
               >
-                {item.label}
+                <span>{item.label}</span>
+
+                <span className="text-[#242528]/40">→</span>
               </Link>
             ))}
 
             <Link
-              href="/contact"
+              href="/"
               onClick={() => setIsOpen(false)}
-              className="mt-3 block rounded-lg bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-blue-700"
+              className="flex items-center justify-between rounded-xl px-4 py-4 font-[Satoshi] text-lg font-medium text-[#242528] transition-all duration-300 hover:bg-[#F5F5F6]"
             >
-              Get Started
+              <span>Cart</span>
+
+              <LucideShoppingBag
+                size={20}
+                strokeWidth={1.8}
+                className="text-[#242528]"
+              />
             </Link>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
