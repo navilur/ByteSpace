@@ -8,6 +8,6 @@ export const HeroData: data[] = [
   {
     title: "Get Access to Hundreds Courses Available",
     text: "Unlock your creativity, gain valuable knowledge, and grow your business with our wide range of courses.",
-    image: "/hero_image.png",
+    image: "/Hero_image.png",
   },
 ];
