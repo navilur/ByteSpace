@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import { skills } from "@/app/constants/SkillsData";
 import { courses } from "@/app/constants/CoursesData";
-import CourseCards from "../ui/CourseCards";
 import CourseCard from "../ui/CourseCards";
 
 const Skills = () => {

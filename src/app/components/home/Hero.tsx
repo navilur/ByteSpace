@@ -7,6 +7,7 @@ import type { MouseEvent } from "react";
 
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import { HeroData } from "@/app/constants/HeroData";
 
 export default function Hero() {
   const ornamentRef = useRef<HTMLImageElement>(null);
@@ -75,9 +76,10 @@ export default function Hero() {
           xl:block
         "
       />
-
-      <div
-        className="
+      {HeroData.map((item, index) => (
+        <div
+          key={index}
+          className="
           relative
           z-10
           mx-auto
@@ -93,9 +95,9 @@ export default function Hero() {
           sm:px-6
           lg:px-8
         "
-      >
-        <h1
-          className="
+        >
+          <h1
+            className="
             w-full
             max-w-233.75
             font-[Poppins]
@@ -109,12 +111,12 @@ export default function Hero() {
             md:text-6xl
             lg:text-[72px]
           "
-        >
-          Get Access to Hundreds Courses Available
-        </h1>
+          >
+            {item.title}
+          </h1>
 
-        <p
-          className="
+          <p
+            className="
             mt-8
             mb-15
             max-w-162.5
@@ -125,25 +127,25 @@ export default function Hero() {
             text-[#E5E6E8]
             sm:text-lg
           "
-        >
-          Unlock your creativity, gain valuable knowledge, and grow your
-          business with our wide range of courses.
-        </p>
+          >
+            {item.title}
+          </p>
 
-        <div className="mt-10 flex w-full justify-center gap-2 md:gap-4 mb-9">
-          <Input
-            icon={<Search size={24} strokeWidth={2} />}
-            iconPosition="left"
-            placeholder="Course, topic, creator"
-            className="w-full max-w-115.25"
-          />
+          <div className="mt-10 flex w-full justify-center gap-2 md:gap-4 mb-9">
+            <Input
+              icon={<Search size={24} strokeWidth={2} />}
+              iconPosition="left"
+              placeholder="Course, topic, creator"
+              className="w-full max-w-115.25"
+            />
 
-          <Button className="my-auto whitespace-nowrap hover:translate-y-0">
-            Search
-          </Button>
+            <Button className="my-auto whitespace-nowrap hover:translate-y-0">
+              Search
+            </Button>
+          </div>
+          <Image src={item.image} alt="" width={746} height={541} priority />
         </div>
-        <Image src="/hero_image.png" alt="" width={746} height={541} priority />
-      </div>
+      ))}
     </section>
   );
 }
