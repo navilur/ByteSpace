@@ -12,20 +12,17 @@ export default function BackButton() {
         backgroundImage: "url('/bg.png')",
       }}
     >
-      {/* Background overlay */}
       <div className="absolute inset-0 bg-black/20" />
 
-      {/* Navbar */}
       <div className="relative z-50">
         <Navbar />
       </div>
 
-      {/* 404 Content */}
       <section className="relative z-10 flex flex-1 items-center justify-center px-6 py-20">
-        <div className="w-full max-w-[1100px] text-center">
+        <div className="w-full max-w-275 text-center">
           <h1
             className="
-              bg-gradient-to-b
+              bg-linear-to-b
               from-[#D4FB20] from-0%
               via-[rgba(212,251,32,0.81)] via-[50.5%]
               to-transparent
@@ -51,7 +48,7 @@ export default function BackButton() {
                 relative
                 z-10
                 mx-auto
-                max-w-[935px]
+                max-w-233.75
                 font-[Poppins]
                 text-4xl
                 font-semibold
@@ -69,7 +66,7 @@ export default function BackButton() {
               className="
                 mx-auto
                 mt-6
-                max-w-[650px]
+                max-w-162.5
                 font-[Satoshi]
                 text-base
                 leading-[160%]
@@ -90,7 +87,6 @@ export default function BackButton() {
         </div>
       </section>
 
-      {/* Footer */}
       <div className="relative z-10">
         <Footer />
       </div>

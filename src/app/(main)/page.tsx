@@ -1,3 +1,4 @@
+import About from "../components/home/About";
 import Hero from "../components/home/Hero";
 import LearningPaths from "../components/home/LearningPaths";
 import Partner from "../components/home/Partner";
@@ -10,6 +11,7 @@ export default function Home() {
       <Partner />
       <Skills />
       <LearningPaths />
+      <About />
     </div>
   );
 }
