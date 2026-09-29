@@ -143,7 +143,7 @@ const About = () => {
               {aboutData2.description}
             </p>
             {aboutData2.items.map((item, index) => (
-              <div className="flex gap-2 mb-4">
+              <div className="flex gap-2 mb-4" key={index}>
                 <Image
                   src="/check.svg"
                   alt="Check Icon"
