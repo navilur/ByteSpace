@@ -143,7 +143,13 @@ export default function Hero() {
               Search
             </Button>
           </div>
-          <Image src={item.image} alt="" width={746} height={541} priority />
+          <Image
+            src={item.image}
+            alt="Hero Image"
+            width={746}
+            height={541}
+            priority
+          />
         </div>
       ))}
     </section>
