@@ -143,7 +143,6 @@ export default function Hero() {
               Search
             </Button>
           </div>
-          <img src={item.image} alt="Hero Image" />
           <Image
             src={item.image}
             alt="Hero Image"
