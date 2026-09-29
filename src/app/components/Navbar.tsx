@@ -5,22 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LucideShoppingBag } from "lucide-react";
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Courses", href: "/courses" },
-  { label: "Creators", href: "/creators" },
-];
-
-const authItems: NavItem[] = [
-  { label: "Sign In", href: "/login" },
-  { label: "Join Us", href: "/register" },
-];
+import { mainNavItems, authNavItems } from "../constants/NavLinks";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -37,7 +22,6 @@ export default function Navbar() {
   return (
     <header className="absolute inset-x-0 top-9 z-50 w-full bg-transparent">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
         <Link
           href="/"
           onClick={() => setIsOpen(false)}
@@ -52,9 +36,8 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => {
+          {mainNavItems.map((item) => {
             const active = isActive(item.href);
 
             return (
@@ -69,9 +52,8 @@ export default function Navbar() {
               >
                 {item.label}
 
-                {/* Active / Hover underline */}
                 <span
-                  className={`absolute -bottom-2 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-white transition-all duration-300 ${
+                  className={`absolute -bottom-2 left-1/2 h-0.5 -translate-x-1/2 rounded-full bg-white transition-all duration-300 ${
                     active ? "w-full" : "w-0 group-hover:w-full"
                   }`}
                 />
@@ -80,9 +62,8 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Desktop CTA */}
         <div className="hidden md:flex gap-6">
-          {authItems.map((item) => {
+          {authNavItems.map((item) => {
             return (
               <Link
                 key={item.href}
@@ -91,7 +72,7 @@ export default function Navbar() {
               >
                 {item.label}
                 <span
-                  className={`absolute -bottom-2 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-white transition-all duration-300 w-0 group-hover:w-full`}
+                  className={`absolute -bottom-2 left-1/2 h-0.5 -translate-x-1/2 rounded-full bg-white transition-all duration-300 w-0 group-hover:w-full`}
                 />
               </Link>
             );
@@ -101,7 +82,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           type="button"
           aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -141,7 +121,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Navigation */}
       <div
         className={`absolute inset-x-0 top-full border-t border-black/5 bg-white shadow-xl transition-all duration-300 md:hidden ${
           isOpen
@@ -150,9 +129,8 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 pb-8 pt-6">
-          {/* Main Navigation */}
           <div className="space-y-2">
-            {navItems.map((item) => {
+            {mainNavItems.map((item) => {
               const active = isActive(item.href);
 
               return (
@@ -180,9 +158,8 @@ export default function Navbar() {
 
           <div className="my-5 h-px bg-black/10" />
 
-          {/* Account Links */}
           <div className="space-y-2">
-            {authItems.map((item) => (
+            {authNavItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

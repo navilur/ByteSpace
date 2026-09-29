@@ -1,22 +1,27 @@
-import { Search } from "lucide-react";
-import type { InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 
-interface SearchInputProps extends Omit<
+interface InputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "className"
 > {
   className?: string;
+  icon?: ReactNode;
+  iconPosition?: "left" | "right";
 }
 
-export default function SearchInput({
+export default function Input({
   className = "",
   placeholder = "Course, topic, creator",
+  icon,
+  iconPosition = "left",
   ...props
-}: SearchInputProps) {
+}: InputProps) {
   return (
     <div
       className={`
         flex
+        h-[52px]
+        w-full
         flex-row
         items-center
         gap-2
@@ -27,11 +32,18 @@ export default function SearchInput({
         ${className}
       `}
     >
+      {icon && iconPosition === "left" && (
+        <span className="flex shrink-0 items-center text-[#82868E]">
+          {icon}
+        </span>
+      )}
+
       <input
         {...props}
         placeholder={placeholder}
         className="
           min-w-0
+          flex-1
           bg-transparent
           font-[Satoshi]
           text-[18px]
@@ -40,9 +52,14 @@ export default function SearchInput({
           text-[#242528]
           outline-none
           placeholder:text-[#82868E]
-          border-[#CED0D3]
         "
       />
+
+      {icon && iconPosition === "right" && (
+        <span className="flex shrink-0 items-center text-[#82868E]">
+          {icon}
+        </span>
+      )}
     </div>
   );
 }

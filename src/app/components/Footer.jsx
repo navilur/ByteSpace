@@ -2,52 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
-const footerSections = [
-  {
-    links: [
-      { label: "Featured Courses", href: "/featured-courses" },
-      { label: "Featured Categories", href: "/featured-categories" },
-      { label: "Business", href: "/business" },
-      { label: "IT", href: "/it" },
-      { label: "Design", href: "/design" },
-    ],
-  },
-  {
-    links: [
-      { label: "Development", href: "/development" },
-      { label: "Marketing", href: "/marketing" },
-      { label: "Photography", href: "/photography" },
-      { label: "Finance", href: "/finance" },
-      { label: "Sport", href: "/sport" },
-    ],
-  },
-  {
-    links: [
-      { label: "Become a Creator", href: "/become-creator" },
-      { label: "Affiliate Program", href: "/affiliate-program" },
-      { label: "Contact", href: "/contact" },
-      { label: "Help", href: "/help" },
-      { label: "About", href: "/about" },
-    ],
-  },
-];
-const privacyList = [
-  {
-    label: "Privacy Policy",
-    href: "/privacy",
-  },
-  {
-    label: "Terms of Service",
-    href: "/terms",
-  },
-  {
-    label: "Cookies Settings",
-    href: "/cookies",
-  },
-];
+import { footerSections, privacyList } from "../constants/NavLinks";
+
 export default function Footer() {
   return (
-    <footer className="bg-white text-black">
+    <footer className="bg-white text-black border-t border-[#CED0D3]">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div className="w-full">
@@ -73,7 +32,7 @@ export default function Footer() {
                 className="border border-[#CED0D3] max-w-94 w-full"
               />
 
-              <Button className="my-auto">Search</Button>
+              <Button className="my-auto hover:translate-y-0">Search</Button>
             </div>
 
             <p className="mt-8 max-w-125 font-[Satoshi] text-xs font-normal text-[#242528]">
@@ -83,8 +42,8 @@ export default function Footer() {
           </div>
 
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
-            {footerSections.slice(0, 3).map((section) => (
-              <div key={section.title}>
+            {footerSections.slice(0, 3).map((section, index) => (
+              <div key={index}>
                 <ul className="mt-5 space-y-3">
                   {section.links.map((link) => (
                     <li key={link.label}>
